@@ -1,0 +1,54 @@
+<div class="menu">
+  <input class="" [(ngModel)]="urlElementSaisie" />
+  <button (click)="onAjoutElement()">Ajouter l'élément</button>
+</div>
+
+<div class="menu">
+  <button (click)="reset()">Réinitialiser</button>
+</div>
+
+<div class="categories">
+  @for (categorie of listeCategories; let indexCategorie = $index ; track
+  indexCategorie) {
+
+  <div class="categorie">
+    <div class="entete">
+      <span>{{ categorie.nom }}</span>
+    </div>
+    <div class="images">
+      @for (urlImage of categorie.elements; let indexElement = $index ;track
+      indexElement) {
+      <div class="image">
+        @if(indexCategorie > 0) {
+        <div
+          class="bouton bouton-plus"
+          (click)="
+            onChangementCategorieImage(indexCategorie, indexElement, true)
+          "
+        >
+          <span>+</span>
+        </div>
+        } @if(indexCategorie < listeCategories.length - 1) {
+        <div
+          class="bouton bouton-moins"
+          (click)="
+            onChangementCategorieImage(indexCategorie, indexElement, false)
+          "
+        >
+          <span>-</span>
+        </div>
+        }
+        <div
+          class="bouton bouton-supprime"
+          (click)="onSuppressionImage(indexCategorie, indexElement)"
+        >
+          <span>X</span>
+        </div>
+        <img src="{{ urlImage }}" />
+      </div>
+      }
+    </div>
+  </div>
+
+  }
+</div>
