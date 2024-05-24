@@ -1,6 +1,13 @@
 <div class="menu">
-  <input class="" [(ngModel)]="urlElementSaisie" />
+  <input [(ngModel)]="urlElementSaisie" />
   <button (click)="onAjoutElement()">Ajouter l'élément</button>
+</div>
+
+<div class="menu">
+  <input [(ngModel)]="nomCategorieSaisie" />
+  <button (click)="onAjoutCategorie()">
+    Ajouter la catégorie
+  </button>
 </div>
 
 <div class="menu">

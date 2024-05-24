@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 export class ListeComponent {
   listeCategories: { nom: string; elements: string[] }[] = [];
   urlElementSaisie: string = '';
+  nomCategorieSaisie: string = '';
 
   ngOnInit() {
     const donnees = localStorage.getItem('listeCategories');
@@ -36,6 +37,18 @@ export class ListeComponent {
   onAjoutElement() {
     this.listeCategories[0].elements.push(this.urlElementSaisie);
     this.urlElementSaisie = '';
+
+    this.sauvegarde();
+  }
+
+  onAjoutCategorie() {
+
+    this.listeCategories.push({
+      nom: this.nomCategorieSaisie,
+      elements: [],
+    });
+
+    this.nomCategorieSaisie = '';
 
     this.sauvegarde();
   }
