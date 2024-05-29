@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+declare type Categorie = { nom: string; elements: string[]; edit: boolean };
+
 @Component({
   selector: 'app-liste',
   standalone: true,
@@ -9,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './liste.component.scss',
 })
 export class ListeComponent {
-  listeCategories: { nom: string; elements: string[] }[] = [];
+  listeCategories: Categorie[] = [];
   urlElementSaisie: string = '';
   nomCategorieSaisie: string = '';
 
@@ -25,11 +27,11 @@ export class ListeComponent {
 
   reset() {
     this.listeCategories = [
-      { nom: 'Top', elements: [] },
-      { nom: 'Bon', elements: [] },
-      { nom: 'Moyen', elements: [] },
-      { nom: 'Mauvais', elements: [] },
-      { nom: 'Horrible', elements: [] },
+      { nom: 'Top', elements: [], edit: false },
+      { nom: 'Bon', elements: [], edit: false },
+      { nom: 'Moyen', elements: [], edit: false },
+      { nom: 'Mauvais', elements: [], edit: false },
+      { nom: 'Horrible', elements: [], edit: false },
     ];
     this.sauvegarde();
   }
@@ -45,11 +47,40 @@ export class ListeComponent {
     this.listeCategories.push({
       nom: this.nomCategorieSaisie,
       elements: [],
+      edit: false,
     });
 
     this.nomCategorieSaisie = '';
 
     this.sauvegarde();
+  }
+
+  onDoubleClic(indexCategorie: number, evenement: any) {
+    this.listeCategories[indexCategorie].edit = true;
+
+    //l'élément cliqué peut être le div entete ou le span du titre
+    const elementClique = evenement.target;
+
+    const enTeteClique = elementClique.closest('.entete');
+
+    //on recupere l'input de l'entete clique
+    const input = enTeteClique.querySelector('.input-titre');
+
+    //on donne le focus à l'input
+    input.focus();
+  }
+
+  onEditCategorie(indexCategorie: number) {
+    this.listeCategories[indexCategorie].edit = false;
+
+    this.sauvegarde();
+  }
+
+  onKeyUpInputCategorie(indexCategorie: number, evenement: KeyboardEvent) {
+
+    if (evenement.code == 'Enter' || evenement.code == 'Escape') {
+      this.onEditCategorie(indexCategorie);
+    }
   }
 
   onSuppressionCategorie(indexCategorie: number) {

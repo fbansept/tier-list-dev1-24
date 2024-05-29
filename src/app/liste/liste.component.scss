@@ -65,12 +65,28 @@
     }
   }
 
+  .titre {
+    user-select: none;
+  }
+
+  .input-titre {
+    width: 100%;
+  }
+
+  .titre:not(.visible),
+  .input-titre:not(.visible) {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
   .entete:hover .bouton,
   .image:hover .bouton {
     display: flex;
   }
 
   .entete {
+    cursor: pointer;
     width: 100px;
     border-right: 1px solid black;
     display: flex;

@@ -5,9 +5,7 @@
 
 <div class="menu">
   <input [(ngModel)]="nomCategorieSaisie" />
-  <button (click)="onAjoutCategorie()">
-    Ajouter la catégorie
-  </button>
+  <button (click)="onAjoutCategorie()">Ajouter la catégorie</button>
 </div>
 
 <div class="menu">
@@ -19,15 +17,24 @@
   indexCategorie) {
 
   <div class="categorie">
-    <div class="entete">
-      <span>{{ categorie.nom }}</span>
+    <div class="entete" (dblclick)="onDoubleClic(indexCategorie, $event)">
+      <span class="titre" [class.visible]="!categorie.edit">
+        {{ categorie.nom }}
+      </span>
+      <input
+        class="input-titre"
+        [(ngModel)]="categorie.nom"
+        [class.visible]="categorie.edit"
+        (blur)="onEditCategorie(indexCategorie)"
+        (keyup)="onKeyUpInputCategorie(indexCategorie, $event)"
+      />
 
       <div
-          class="bouton bouton-supprime"
-          (click)="onSuppressionCategorie(indexCategorie)"
-        >
-          <span>X</span>
-        </div>
+        class="bouton bouton-supprime"
+        (click)="onSuppressionCategorie(indexCategorie)"
+      >
+        <span>X</span>
+      </div>
     </div>
     <div class="images">
       @for (urlImage of categorie.elements; let indexElement = $index ;track
