@@ -21,6 +21,13 @@
   <div class="categorie">
     <div class="entete">
       <span>{{ categorie.nom }}</span>
+
+      <div
+          class="bouton bouton-supprime"
+          (click)="onSuppressionCategorie(indexCategorie)"
+        >
+          <span>X</span>
+        </div>
     </div>
     <div class="images">
       @for (urlImage of categorie.elements; let indexElement = $index ;track

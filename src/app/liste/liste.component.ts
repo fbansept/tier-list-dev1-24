@@ -42,7 +42,6 @@ export class ListeComponent {
   }
 
   onAjoutCategorie() {
-
     this.listeCategories.push({
       nom: this.nomCategorieSaisie,
       elements: [],
@@ -51,6 +50,29 @@ export class ListeComponent {
     this.nomCategorieSaisie = '';
 
     this.sauvegarde();
+  }
+
+  onSuppressionCategorie(indexCategorie: number) {
+    //on trouve l'index de la catégorie qui va récupérer tous les élements de la catégorie supprimée
+    //il s'agit de la catégorie suivante, sauf si on supprime la dernière catégorie
+    const indexCategorieReceptionElements =
+      indexCategorie >= this.listeCategories.length - 1
+        ? indexCategorie - 1
+        : indexCategorie + 1;
+
+    const categorieReceptionElements =
+      this.listeCategories[indexCategorieReceptionElements];
+
+    const categorieSupprime = this.listeCategories[indexCategorie];
+
+    //on ajoute tous les élements de la catégorie supprimée
+    categorieReceptionElements.elements = [
+      ...categorieReceptionElements.elements,
+      ...categorieSupprime.elements,
+    ];
+
+    //on supprime la catégorie
+    this.listeCategories.splice(indexCategorie, 1);
   }
 
   onSuppressionImage(indexCategorie: number, indexElement: number) {
